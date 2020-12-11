@@ -13,20 +13,18 @@
 
   const favoriteBooks = [];
   function initActions(){
-    const images = document.querySelectorAll('.book__image');
-    for (let image of images){
-      image.addEventListener('dblclick', function(event){
-        event.preventDefault();
-        if (favoriteBooks.indexOf(image.getAttribute('data-id')) == -1) {
-          favoriteBooks.push(image.getAttribute('data-id'));
-          image.classList.add('favorite');
+    document.querySelector('.books-list').addEventListener('dblclick', function(event){
+      event.preventDefault();
+      if (event.target && event.target.classList.contains('.book__image')) {
+        if (favoriteBooks.indexOf(event.target.getAttribute('data-id')) == -1) {
+          favoriteBooks.push(event.target.getAttribute('data-id'));
+          event.target.classList.add('favorite');
         } else {
-          favoriteBooks.splice(favoriteBooks.indexOf(image.getAttribute('data-id')), 1);
-          image.classList.remove('favorite');
+          favoriteBooks.splice(favoriteBooks.indexOf(event.target.getAttribute('data-id')), 1);
+          event.target.classList.remove('favorite');
         }
-      });
-    }
-    console.log(favoriteBooks);
+      }
+    });
   }
 
   generateElements();
